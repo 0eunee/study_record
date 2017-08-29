@@ -5,7 +5,7 @@
   1. 예를 들어, 어떤 저장소를 포크하여 브랜치를 만들어 기능을 작성함.
   2. 그 기능을 풀리퀘 보낼 예정.
   3. 그런데 현재 원격 저장소를 보니 **내가 포크하여 만든 브랜치의 base 브랜치**에 이 후 추가된 기능이 많음.
-      + [현재 원격 저장소에 커밋된 내용들을 확인하는 방법](https://github.com/0eunee/study_record/blob/master/Git/fetch-from-remote-repository.md)
+      + [현재 원격 저장소에 새로 커밋된 내용들을 확인하는 방법](https://github.com/0eunee/study_record/blob/master/Git/fetch-from-remote-repository.md)
   4. 그렇기 때문에 그냥 풀리퀘를 보내면 충돌이 예상됨.
   5. 그래서 원격 저장소의 최신 커밋을 base로 바꿔 풀리퀘 보낼 것임.
 ## 어떻게?
