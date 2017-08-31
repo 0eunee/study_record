@@ -1,4 +1,4 @@
-#spring-jpa
+# spring-jpa
 > 스프링부트 기반으로 작성합니다.
 
 - 자바 객체 매핑에 따라 테이블 자동 생성
@@ -13,4 +13,6 @@
         * default 값들을 알고 싶으면 어노테이션 누르고 `F3`
         * 따로 적지 않아도 클래스 안 각각의 값들은 컬럼으로 설정 됨
 - `application.properties`에 db정보 세팅
-- `public interface ~~~Repository` 또는 `~~~DAO`는 `extends JpaRepository<Entity 선언한 클래스명, 프라이머리키 자료형>`
+- **`JpaRepository`**
+    + `public interface ~~~Repository extends JpaRepository<@Entity 선언한 클래스명, 프라이머리키 자료형>`
+    + `public interface ~~~DAO extends JpaRepository<@Entity 선언한 클래스명, 프라이머리키 자료형>`
