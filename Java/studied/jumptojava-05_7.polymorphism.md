@@ -27,7 +27,7 @@ public class Bouncer {
 }
 ```
 > `instanceof`는 특정 객체가 특정 클래스의 객체인지를 조사할 때 사용되는 자바 내장 키워드.
-`animal instanceof Tiger` == "animal 객체가 `new Tiger`로 만들어진 객체인가?"
+> `animal instanceof Tiger` == "animal 객체가 `new Tiger`로 만들어진 객체인가?"
 
 barkAnimal 메소드는 동물이 추가될 때마다 수정되어야 한다.
 ```java
