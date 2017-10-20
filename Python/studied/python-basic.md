@@ -73,3 +73,25 @@ if True:
   print('true')
 ```
 - 파이썬에는 `switch`문이 없어서 `if..elif..else`문을 사용하여야 한다.
+### while
+```python
+number = 55
+running = True
+
+while running:
+  guess = int(input('Enter an integer : '))
+
+  if guess == number:
+    print('You guessed it.')
+  elif guess < number:
+    print('It is a higher than that.')
+  else:
+    print('It is a lower than that.')
+
+else:
+  print('Loop is over')
+
+print('Bye!')
+
+# while 루프에 else문 사용 가능
+```
