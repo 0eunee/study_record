@@ -17,9 +17,9 @@
 - **related:** : 관련 사이트 검색 `ex)related:time.com`
 - **info:** : 사이트 세부 정보
 - **cache:** : 구글에서 캐시한 사이트 버전 확인
-### 귀찮다면 .. 
+### 귀찮다면 ..
 [Google 고급검색](https://www.google.com/advanced_search)  
 ▼ 위 링크로 들어가면 이런 편리한 화면의 도움을 받아 고급 검색 가능 :)
-![search-on-google1](../img/search-on-google/search-on-google1.png "search-on-google1")
+![search-on-google1](../img/search-on-google/search-on-google1.PNG "search-on-google1")
 ### refer
 [구글 고객센터 - 더 정확한 웹 검색결과 얻기](https://support.google.com/websearch/answer/2466433)
