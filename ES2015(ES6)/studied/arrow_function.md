@@ -44,3 +44,104 @@ const arr = [1, 2, 3];
 const multi = arr.map(x => x * x);
 console.log(multi);
 ```
+## this
+일반 함수의 경우, 함수 호출 패턴에 따라 `this`에 바인딩되는 객체가 달라짐. 콜백함수 내부의 `this`는 전역 객체 `window`를 가리킴
+```javascript
+function Prefixer(prefix) {
+  this.prefix = prefix;
+}
+Prefixer.prototype.prefixArray = function (arr) {
+  return arr.map(function (x) {
+    return this.prefix + ' ' + x;
+  });
+};
+var pre = new Prefixer('Hi');
+console.log(pre.prefixArray(['Lee', 'Kim']));         // undefined Lee, undefined Kim
+```
+위의 결과로 `Hi Lee, Hi Kim`을 기대했겠지만, 두번째 함수의 `this`는 전역 객체 `window`를 가리키기 때문에 `undefined Lee, undefined Kim`이 출력된다.
+```javascript
+function Prefixer(prefix) {
+  this.prefix = prefix;
+}
+Prefixer.prototype.prefixArray = function (arr) {
+  return arr.map(function (x) {
+    return this.prefix + ' ' + x;
+  }.bind(this));
+};
+var pre = new Prefixer('Hi');
+console.log(pre.prefixArray(['Lee', 'Kim']));         // Hi Lee, Hi Kim
+```
+## Arrow function의 this
+Arrow function은 자신만의 `this`를 생성하지 않고 자신을 포함하는 외부 scope에서 `this`를 계승 받는다.
+```javascript
+function Prefixer(prefix) {
+  this.prefix = prefix;
+}
+Prefixer.prototype.prefixArray = function (arr) {
+  return arr.map(x => `${this.prefix} ${x}`);
+};
+const pre = new Prefixer('Hi');
+console.log(pre.prefixArray(['Lee', 'Kim']));
+```
+## Arrow function을 사용해서는 안되는 경우
+1. 메소드
+```javascript
+// Bad
+// 메소드를 호출한 객체에 this가 바인딩 되지 않고 전역 객체에 바인딩 됨
+const obj = {
+  name: 'Jeon',
+  sayHi: () => console.log(`Hi ${this.name}`)
+};
+obj.sayHi();          // Hi undefined
+
+// Good
+const obj = {
+  name: 'Jeon',
+  sayHi() {   // === sayHi: function() {
+    console.log(`Hi ${this.name}`);
+  }
+};
+obj.sayHi();         // Hi Jeon
+```
+2. prototype
+```javascript
+// Bad
+const obj = {
+  name: 'Jeon'
+};
+Object.prototype.sayHi = () => console.log(`Hi ${this.name}`);
+obj.sayHi();         // Hi undefined
+
+// Good
+const obj = {
+  name: 'Jeon'
+};
+Object.prototype.sayHi = function () {
+  console.log(`Hi ${this.name}`);
+};
+obj.sayHi();        // Hi Jeon
+```
+3. 생성자
+```javascript
+const Temp = () => {};
+// Arrow function은 prototype 프로퍼티가 없음
+console.log(Temp.hasOwnProperty('prototype'));    // false
+const temp = new Temp();        // TypeError: Temp is not a constructor
+```
+4. addEventListener 함수의 콜백 함수
+addEventListener 함수의 콜백 함수를 화살표 함수로 정의하면 this가 상위 컨텍스트를 가리킴
+```javascript
+// Bad
+var button = document.getElementById('myButton');
+button.addEventListener('click', () => {
+  console.log(this === window);   // => true
+  this.innerHTML = 'Clicked button';
+});
+
+// Good
+var button = document.getElementById('myButton');
+button.addEventListener('click', function() {
+  console.log(this === button);   // => true
+  this.innerHTML = 'Clicked button';
+})
+```
