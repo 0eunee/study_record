@@ -85,63 +85,63 @@ console.log(pre.prefixArray(['Lee', 'Kim']));
 ```
 ## Arrow function을 사용해서는 안되는 경우
 1. 메소드
-  ```javascript
-  // Bad
-  // 메소드를 호출한 객체에 this가 바인딩 되지 않고 전역 객체에 바인딩 됨
-  const obj = {
-    name: 'Jeon',
-    sayHi: () => console.log(`Hi ${this.name}`)
-  };
-  obj.sayHi();          // Hi undefined
+```javascript
+// Bad
+// 메소드를 호출한 객체에 this가 바인딩 되지 않고 전역 객체에 바인딩 됨
+const obj = {
+  name: 'Jeon',
+  sayHi: () => console.log(`Hi ${this.name}`)
+};
+obj.sayHi();          // Hi undefined
 
-  // Good
-  const obj = {
-    name: 'Jeon',
-    sayHi() {   // === sayHi: function() {
-      console.log(`Hi ${this.name}`);
-    }
-  };
-  obj.sayHi();         // Hi Jeon
-  ```
-2. prototype
-  ```javascript
-  // Bad
-  const obj = {
-    name: 'Jeon'
-  };
-  Object.prototype.sayHi = () => console.log(`Hi ${this.name}`);
-  obj.sayHi();         // Hi undefined
-
-  // Good
-  const obj = {
-    name: 'Jeon'
-  };
-  Object.prototype.sayHi = function () {
+// Good
+const obj = {
+  name: 'Jeon',
+  sayHi() {   // === sayHi: function() {
     console.log(`Hi ${this.name}`);
-  };
-  obj.sayHi();        // Hi Jeon
-  ```
+  }
+};
+obj.sayHi();         // Hi Jeon
+```
+2. prototype
+```javascript
+// Bad
+const obj = {
+  name: 'Jeon'
+};
+Object.prototype.sayHi = () => console.log(`Hi ${this.name}`);
+obj.sayHi();         // Hi undefined
+
+// Good
+const obj = {
+  name: 'Jeon'
+};
+Object.prototype.sayHi = function () {
+  console.log(`Hi ${this.name}`);
+};
+obj.sayHi();        // Hi Jeon
+```
 3. 생성자
-  ```javascript
-  const Temp = () => {};
-  // Arrow function은 prototype 프로퍼티가 없음
-  console.log(Temp.hasOwnProperty('prototype'));    // false
-  const temp = new Temp();        // TypeError: Temp is not a constructor
-  ```
+```javascript
+const Temp = () => {};
+// Arrow function은 prototype 프로퍼티가 없음
+console.log(Temp.hasOwnProperty('prototype'));    // false
+const temp = new Temp();        // TypeError: Temp is not a constructor
+```
 4. addEventListener 함수의 콜백 함수
 addEventListener 함수의 콜백 함수를 화살표 함수로 정의하면 this가 상위 컨텍스트를 가리킴
-  ```javascript
-  // Bad
-  var button = document.getElementById('myButton');
-  button.addEventListener('click', () => {
-    console.log(this === window);   // => true
-    this.innerHTML = 'Clicked button';
-  });
+```javascript
+// Bad
+var button = document.getElementById('myButton');
+button.addEventListener('click', () => {
+  console.log(this === window);   // => true
+  this.innerHTML = 'Clicked button';
+});
 
-  // Good
-  var button = document.getElementById('myButton');
-  button.addEventListener('click', function() {
-    console.log(this === button);   // => true
-    this.innerHTML = 'Clicked button';
-  })
-  ```
+// Good
+var button = document.getElementById('myButton');
+button.addEventListener('click', function() {
+  console.log(this === button);   // => true
+  this.innerHTML = 'Clicked button';
+})
+```
